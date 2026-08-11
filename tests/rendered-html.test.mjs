@@ -38,6 +38,13 @@ test("server-renders the bilingual Alberta Health Data Atlas", async () => {
   assert.match(html, /先读字段，再写数据规格/);
   assert.match(html, /打开官方工作簿/);
   assert.match(html, /没有公开字段工作簿链接/);
+  assert.match(html, /在 GitHub 查看项目/);
+  assert.equal(
+    html.match(
+      /href="https:\/\/github\.com\/LaboratoireV\/HealthcareData_Knowledge"/g,
+    )?.length,
+    2,
+  );
   assert.match(html, /这是学习资料，不是数据下载门户/);
 });
 

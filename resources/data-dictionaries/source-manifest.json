@@ -1,0 +1,66 @@
+{
+  "verified_at": "2026-08-10",
+  "publisher": "University of Calgary Centre for Health Informatics",
+  "catalogue_url": "https://cumming.ucalgary.ca/centres/centre-health-informatics/data-and-analytic-services/data-resources/ahs-datasets",
+  "terms_url": "https://www.ucalgary.ca/website-terms-conditions",
+  "redistribution_note": "Original XLSX files are not mirrored. Use the publisher-hosted URLs and confirm permission before redistribution.",
+  "hash_note": "Sizes and SHA-256 hashes describe the files observed on the verification date and may change upstream.",
+  "files": [
+    {
+      "dataset": "Discharge Abstract Database (DAD)",
+      "filename": "DAD_elements.xlsx",
+      "url": "https://cumming.ucalgary.ca/sites/default/files/teams/30/DAD_elements.xlsx",
+      "bytes": 3765179,
+      "sha256": "bc9b0ef925b6b176d5efe28659000bb4edba6919c7f32fa0330771d9a25ff2a6",
+      "workbook_modified": "2020-08-21"
+    },
+    {
+      "dataset": "National Ambulatory Care Reporting System (NACRS)",
+      "filename": "NACRS_elements.xlsx",
+      "url": "https://cumming.ucalgary.ca/sites/default/files/teams/30/NACRS_elements.xlsx",
+      "bytes": 11904012,
+      "sha256": "3bf660f84e8c95351eefaea651e4cee85a665af2cded1e0928757a8082227dc7",
+      "workbook_modified": "2020-08-21"
+    },
+    {
+      "dataset": "Practitioner Claims",
+      "filename": "CLAIMS_Elements.xlsx",
+      "url": "https://cumming.ucalgary.ca/sites/default/files/teams/30/CLAIMS_Elements.xlsx",
+      "bytes": 9354865,
+      "sha256": "d1decaf0e5322acd90d25d9c0e4b78945d3a6ffcea6f61e4a1f7e2043f370902",
+      "workbook_modified": "2020-08-21"
+    },
+    {
+      "dataset": "Provincial Laboratory Data (PLD)",
+      "filename": "LAB_elements.xlsx",
+      "url": "https://cumming.ucalgary.ca/sites/default/files/teams/30/LAB_elements.xlsx",
+      "bytes": 282947,
+      "sha256": "f973437e2f9138ed1169c5f07a4d22cbdeda19850af09e322b4677e8f3e0cd91",
+      "workbook_modified": "2020-08-21"
+    },
+    {
+      "dataset": "Pharmaceutical Information Network (PIN)",
+      "filename": "PIN_elements.xlsx",
+      "url": "https://cumming.ucalgary.ca/sites/default/files/teams/30/PIN_elements.xlsx",
+      "bytes": 1746495,
+      "sha256": "8a9816dfc11b1be441796a5c7610a73ea22e739affaf7e0607f74d21bc333d02",
+      "workbook_modified": "2020-08-21"
+    },
+    {
+      "dataset": "Vital Statistics Death Registry",
+      "filename": "VitalStatisticsDeath_elements.xlsx",
+      "url": "https://cumming.ucalgary.ca/sites/default/files/teams/30/VitalStatisticsDeath_elements.xlsx",
+      "bytes": 11887934,
+      "sha256": "ace37b28df2ded037dbeb1e6a0eb160d006fa5c0eb58bda2efd238bdc1d32c17",
+      "workbook_modified": "2020-08-21"
+    },
+    {
+      "dataset": "Alberta Health Care Insurance Plan Registry",
+      "filename": "Registry_elements.xlsx",
+      "url": "https://cumming.ucalgary.ca/sites/default/files/teams/30/Registry_elements.xlsx",
+      "bytes": 14835,
+      "sha256": "9d16b86b58b7eda7ddcd85472acd57f7ff7dc1debc636cdae3d3e7bfc874060e",
+      "workbook_modified": "2020-08-21"
+    }
+  ]
+}

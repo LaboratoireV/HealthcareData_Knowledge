@@ -6,6 +6,10 @@ import {
   type DeepDive,
   type LocalizedText,
 } from "./deep-dives";
+import {
+  dictionaryGuides,
+  type DictionaryStatus,
+} from "./dictionary-guides";
 
 type Dataset = {
   id: string;
@@ -32,6 +36,16 @@ type Dataset = {
 
 const CATALOGUE_URL =
   "https://cumming.ucalgary.ca/centres/centre-health-informatics/data-and-analytic-services/data-resources/ahs-datasets";
+const DICTIONARY_GUIDE_BASE =
+  "https://github.com/LaboratoireV/HealthcareData_Knowledge/blob/main/resources/data-dictionaries";
+const UCALGARY_TERMS_URL =
+  "https://www.ucalgary.ca/website-terms-conditions";
+
+const dictionaryStatusCopy: Record<DictionaryStatus, LocalizedText> = {
+  linked: { zh: "官方公开工作簿", en: "Official public workbook" },
+  partial: { zh: "部分公开：仅死亡登记", en: "Partial: Death Registry only" },
+  request: { zh: "无公开字段工作簿", en: "No public field workbook" },
+};
 
 const datasets: Dataset[] = [
   {
@@ -1505,6 +1519,10 @@ export default function Home() {
                           <span aria-hidden="true">→</span>
                         </button>
                       )}
+                      <a href={`#dictionary-${dataset.id}`}>
+                        {tr("中英字典解读", "Bilingual dictionary guide")} {" "}
+                        <span aria-hidden="true">↓</span>
+                      </a>
                       <a href={dataset.sourceUrl} target="_blank" rel="noreferrer">
                         {tr("CHI 来源", "CHI source")} <ArrowIcon />
                         <span className="sr-only">
@@ -1633,6 +1651,202 @@ export default function Home() {
             </div>
           </section>
         )}
+
+        <section
+          className="dictionary-library"
+          id="dictionaries"
+          aria-labelledby="dictionary-library-title"
+        >
+          <div className="section-shell">
+            <div className="section-heading dictionary-heading">
+              <div>
+                <span className="section-kicker">
+                  {tr("资料库 · DATA DICTIONARIES", "LIBRARY · DATA DICTIONARIES")}
+                </span>
+                <h2 id="dictionary-library-title">
+                  {tr(
+                    "先读字段，再写数据规格",
+                    "Read the fields before writing the data specification",
+                  )}
+                </h2>
+              </div>
+              <p>
+                {tr(
+                  "字段字典不是字段购物清单。先确认一行代表什么，再检查标识、时间、代码、重复字段和缺失规则。",
+                  "A data dictionary is not a shopping list. First establish what one row represents, then inspect identifiers, timing, codes, repeating elements, and missing-value rules.",
+                )}
+              </p>
+            </div>
+
+            <aside className="dictionary-library-note">
+              <span className="dictionary-note-mark" aria-hidden="true">i</span>
+              <p>
+                {tr(
+                  "这里收录原创中英文解读，并直接链接 CHI 的 7 份公开工作簿。UCalgary 未为这些文件提供开放再分发许可，因此本项目不镜像原始 XLSX；SCM 与 Connect Care 则标为申请型项目规格。",
+                  "This library provides original bilingual interpretation and links directly to seven public CHI workbooks. UCalgary does not provide an open redistribution licence for these files, so this project does not mirror the XLSX originals. SCM and Connect Care are labelled as request-specific specifications.",
+                )}
+              </p>
+              <div className="dictionary-library-stats" aria-label={tr("字典状态统计", "Dictionary status totals")}>
+                <span>{tr("07 · 官方直链", "07 · OFFICIAL LINKS")}</span>
+                <span>{tr("02 · 申请型规格", "02 · REQUEST-SPECIFIC")}</span>
+              </div>
+            </aside>
+
+            <ul className="dictionary-grid">
+              {dictionaryGuides.map((guide, index) => {
+                const dataset = datasets.find((item) => item.id === guide.datasetId);
+                if (!dataset) return null;
+                return (
+                  <li key={guide.datasetId}>
+                    <article
+                      className={`dictionary-card dictionary-card-${guide.status}`}
+                      id={`dictionary-${guide.datasetId}`}
+                      aria-labelledby={`dictionary-title-${guide.datasetId}`}
+                    >
+                      <div className="dictionary-card-top">
+                        <span className="dictionary-index">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span className={`dictionary-status status-${guide.status}`}>
+                          <i aria-hidden="true" />
+                          {lt(dictionaryStatusCopy[guide.status])}
+                        </span>
+                      </div>
+
+                      <div className="dictionary-card-title">
+                        <strong>{dataset.acronym}</strong>
+                        <div>
+                          <h3 id={`dictionary-title-${guide.datasetId}`}>
+                            {isEnglish ? dataset.nameEn : dataset.nameZh}
+                          </h3>
+                          <p lang={isEnglish ? "zh-CN" : "en"}>
+                            {isEnglish ? dataset.nameZh : dataset.nameEn}
+                          </p>
+                        </div>
+                      </div>
+
+                      <dl className="dictionary-card-facts">
+                        <div>
+                          <dt>{tr("典型粒度", "Typical grain")}</dt>
+                          <dd>{lt(guide.grain)}</dd>
+                        </div>
+                        <div>
+                          <dt>{tr("工作簿结构", "Workbook structure")}</dt>
+                          <dd>{lt(guide.workbook)}</dd>
+                        </div>
+                      </dl>
+
+                      <p className="dictionary-scope">{lt(guide.scope)}</p>
+
+                      <div
+                        className="dictionary-concepts"
+                        aria-label={tr("核心字段组", "Core field groups")}
+                      >
+                        {guide.concepts.map((concept) => (
+                          <section key={concept.title.en}>
+                            <h4>{lt(concept.title)}</h4>
+                            {concept.fields && <code>{concept.fields}</code>}
+                            <p>{lt(concept.note)}</p>
+                          </section>
+                        ))}
+                      </div>
+
+                      <details className="dictionary-details">
+                        <summary>
+                          <span>{tr("如何读这份字典", "How to read this dictionary")}</span>
+                          <i aria-hidden="true">＋</i>
+                        </summary>
+                        <div className="dictionary-reading-guide">
+                          <section>
+                            <h4>{tr("建议步骤", "Suggested reading steps")}</h4>
+                            <ol>
+                              {guide.reading.map((item) => (
+                                <li key={item.en}>{lt(item)}</li>
+                              ))}
+                            </ol>
+                          </section>
+                          <section className="dictionary-caution">
+                            <h4>{tr("不要直接假定", "Do not assume")}</h4>
+                            <ul>
+                              {guide.cautions.map((item) => (
+                                <li key={item.en}>{lt(item)}</li>
+                              ))}
+                            </ul>
+                          </section>
+                        </div>
+                      </details>
+
+                      <div className="dictionary-actions">
+                        {guide.officialUrl ? (
+                          <a
+                            className="dictionary-download"
+                            href={guide.officialUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <span>
+                              {tr("打开官方工作簿", "Open official workbook")}
+                              <small>{guide.officialFile}</small>
+                            </span>
+                            <ArrowIcon />
+                            <span className="sr-only">
+                              {tr("（在新标签页打开）", "(opens in a new tab)")}
+                            </span>
+                          </a>
+                        ) : (
+                          <div className="dictionary-no-public">
+                            <strong>
+                              {tr("没有公开字段工作簿链接", "No public field workbook is linked")}
+                            </strong>
+                            <p>
+                              {tr(
+                                "这不表示数据不可申请。请索取当前项目的数据元素清单、实体关系、值集与版本说明。",
+                                "This does not mean the data cannot be requested. Ask for the current element list, entity relationships, value sets, and version notes.",
+                              )}
+                            </p>
+                            {guide.requestUrl && (
+                              <a href={guide.requestUrl} target="_blank" rel="noreferrer">
+                                {tr("查看申请说明", "View request guidance")} <ArrowIcon />
+                              </a>
+                            )}
+                          </div>
+                        )}
+                        <a
+                          className="dictionary-guide-link"
+                          href={`${DICTIONARY_GUIDE_BASE}/${guide.guideFile}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {tr("阅读 GitHub 中英解读", "Read the bilingual guide on GitHub")} <ArrowIcon />
+                          <span className="sr-only">
+                            {tr("（在新标签页打开）", "(opens in a new tab)")}
+                          </span>
+                        </a>
+                      </div>
+                    </article>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <div className="dictionary-source-note">
+              <p>
+                {tr(
+                  "来源核验：2026-08-10。7 份工作簿的内部修改日期均为 2020-08-21，可能早于当前目录；字段、年份、代码表与缺失规则必须向当前 custodian 重核。",
+                  "Sources verified August 10, 2026. All seven workbooks carry an internal modified date of August 21, 2020 and may predate the current catalogue; reconfirm fields, years, code sets, and missing-value rules with the current custodian.",
+                )}
+              </p>
+              <div>
+                <a href={CATALOGUE_URL} target="_blank" rel="noreferrer">
+                  {tr("CHI 数据目录", "CHI dataset catalogue")} <ArrowIcon />
+                </a>
+                <a href={UCALGARY_TERMS_URL} target="_blank" rel="noreferrer">
+                  {tr("UCalgary 使用条款", "UCalgary terms of use")} <ArrowIcon />
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section
           className={`deep-dives deep-dives-${activeDeepDive.id}`}

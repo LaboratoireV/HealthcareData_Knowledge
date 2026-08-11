@@ -36,6 +36,8 @@ type Dataset = {
 
 const CATALOGUE_URL =
   "https://cumming.ucalgary.ca/centres/centre-health-informatics/data-and-analytic-services/data-resources/ahs-datasets";
+const GITHUB_REPOSITORY_URL =
+  "https://github.com/LaboratoireV/HealthcareData_Knowledge";
 const DICTIONARY_GUIDE_BASE =
   "https://github.com/LaboratoireV/HealthcareData_Knowledge/blob/main/resources/data-dictionaries";
 const UCALGARY_TERMS_URL =
@@ -1091,6 +1093,23 @@ export default function Home() {
           <a href="#responsible">{tr("责任使用", "Responsible use")}</a>
         </nav>
         <div className="header-actions">
+          <a
+            className="header-github"
+            href={GITHUB_REPOSITORY_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={tr(
+              "在 GitHub 查看 Alberta Health Data Atlas 项目",
+              "View the Alberta Health Data Atlas project on GitHub",
+            )}
+          >
+            <span className="github-long">GitHub</span>
+            <span className="github-short" aria-hidden="true">GH</span>
+            <span aria-hidden="true">↗</span>
+            <span className="sr-only">
+              {tr("（在新标签页打开）", "(opens in a new tab)")}
+            </span>
+          </a>
           <div
             className="language-switch"
             role="group"
@@ -2551,6 +2570,17 @@ export default function Home() {
           </span>
         </div>
         <div className="footer-links">
+          <a
+            className="footer-github"
+            href={GITHUB_REPOSITORY_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {tr("在 GitHub 查看项目", "View project on GitHub")} <ArrowIcon />
+            <span className="sr-only">
+              {tr("（在新标签页打开）", "(opens in a new tab)")}
+            </span>
+          </a>
           <a href={CATALOGUE_URL} target="_blank" rel="noreferrer">
             {tr("核心来源", "Core source")} <ArrowIcon />
             <span className="sr-only">

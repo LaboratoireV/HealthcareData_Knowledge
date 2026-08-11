@@ -30,6 +30,7 @@ test("server-renders the bilingual Alberta Health Data Atlas", async () => {
 
   const html = await response.text();
   assert.match(html, /Alberta Health Data Atlas/);
+  assert.match(html, /The V Lab/);
   assert.match(html, /阿省健康数据学习站/);
   assert.match(html, /核心数据集深度导读/);
   assert.match(html, /出院摘要数据库/);

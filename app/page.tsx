@@ -1066,7 +1066,7 @@ export default function Home() {
           </span>
           <span>
             <strong>Alberta Health Data Atlas</strong>
-            <small>{tr("阿省健康数据学习站", "Bilingual learning guide")}</small>
+            <small>The V Lab · {tr("阿省健康数据学习站", "Bilingual learning guide")}</small>
           </span>
         </a>
         <nav aria-label={tr("主要导航", "Main navigation")}>
@@ -2317,7 +2317,9 @@ export default function Home() {
           </span>
           <div>
             <strong>Alberta Health Data Atlas</strong>
-            <span>{tr("阿省健康数据学习站", "Learning Hub for Alberta Health Data")}</span>
+            <span>
+              {tr("The V Lab 出品 · 阿省健康数据学习站", "A learning project by The V Lab")}
+            </span>
           </div>
         </div>
         <div className="footer-note">

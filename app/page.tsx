@@ -1065,7 +1065,7 @@ export default function Home() {
             <i />
           </span>
           <span>
-            <strong>AH Data Atlas</strong>
+            <strong>Alberta Health Data Atlas</strong>
             <small>{tr("阿省健康数据学习站", "Bilingual learning guide")}</small>
           </span>
         </a>
